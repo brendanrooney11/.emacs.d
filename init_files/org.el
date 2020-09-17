@@ -45,7 +45,7 @@
 ;;     (if (eq buff "
 ;;     )
 
-(setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "EVENT(e)" "|" "DONE(d)" "CANCELLED(c)")))
+(setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "EVENT(e)" "MAYBE(m)" "|" "DONE(d)" "CANCELLED(c)")))
 
 ;; Agenda View
 (setq org-agenda-dim-blocked-tasks nil)
@@ -53,5 +53,10 @@
 
 ;; Set the default org columns view
 (setq org-columns-default-format "%50ITEM(Task) %10CLOCKSUM %16TIMESTAMP_IA")
+
+
+
+
+
 
 

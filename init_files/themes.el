@@ -28,11 +28,10 @@
   :ensure)
 
 ;;(load-theme 'gruvbox-dark-hard t)
-(load 'modus-vivendi)
+(load-theme 'modus-vivendi t)
 
 (defvar dark-theme 'modus-vivendi)
 (defvar light-theme 'modus-operandi)
-
 
 (defun toggle-light-dark-themes ()
   "Toggle between `light-theme' and `dark-theme' themes."
