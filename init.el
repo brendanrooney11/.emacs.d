@@ -15,6 +15,7 @@
 
 (load "~/.emacs.d/init_files/completion.el")
 (load "~/.emacs.d/init_files/elfeed.el")
+(load "~/.emacs.d/init_files/dired.el")
 (load "~/.emacs.d/init_files/notes.el")
 (load "~/.emacs.d/init_files/org.el")
 (load "~/.emacs.d/init_files/themes.el")
