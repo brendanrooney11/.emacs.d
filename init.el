@@ -12,6 +12,7 @@
 
 ;; FILES ARE ALL LOCATED IN ~/.emacs.d/init_files/
 (load "~/.emacs.d/init_files/global.el")
+
 (load "~/.emacs.d/init_files/completion.el")
 (load "~/.emacs.d/init_files/elfeed.el")
 (load "~/.emacs.d/init_files/notes.el")
@@ -21,13 +22,13 @@
 
 ;; Langs
 (load "~/.emacs.d/init_files/c.el")
-(load "~/.emacs.d/init_files/clojure.el")
+;;(load "~/.emacs.d/init_files/clojure.el")
 (load "~/.emacs.d/init_files/emacs-lisp.el")
-(load "~/.emacs.d/init_files/go.el")
-(load "~/.emacs.d/init_files/haskell.el")
-(load "~/.emacs.d/init_files/js.el")
-(load "~/.emacs.d/init_files/java.el")
-(load "~/.emacs.d/init_files/lisp.el")
+;;(load "~/.emacs.d/init_files/go.el")
+;;(load "~/.emacs.d/init_files/haskell.el")
+;;(load "~/.emacs.d/init_files/js.el")
+;;(load "~/.emacs.d/init_files/java.el")
+;;(load "~/.emacs.d/init_files/lisp.el")
 (load "~/.emacs.d/init_files/lua.el")
 (load "~/.emacs.d/init_files/python.el")
 ;;(load "~/.emacs.d/init_files/rust_devlopment.el")
@@ -40,7 +41,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("96c56bd2aab87fd92f2795df76c3582d762a88da5c0e54d30c71562b7bf9c605" "aded61687237d1dff6325edb492bde536f40b048eab7246c61d5c6643c696b7f" "ae65ccecdcc9eb29ec29172e1bfb6cadbe68108e1c0334f3ae52414097c501d2" "2a9039b093df61e4517302f40ebaf2d3e95215cb2f9684c8c1a446659ee226b9" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "fd3c7bd752f48dcb7efa5f852ef858c425b1c397b73851ff8816c0580eab92f1" "e2fd81495089dc09d14a88f29dfdff7645f213e2c03650ac2dd275de52a513de" "ab564a7ce7f2b2ad9e2cfe9fe1019b5481809dd7a0e36240c9139e230cc2bc32" "3da031b25828b115c6b50bb92a117f5c0bbd3d9d0e9ba5af3cd2cb9db80db1c2" "595617a3c537447aa7e76ce05c8d43146a995296ea083211225e7efc069c598f" "8a9be13b2353a51d61cffed5123b157000da0347c252a7a308ebc43e16662de7" "dd43ce1171324a8e47f9e4ca9f49773c4b4960706171ab951130c668adc59f53" "26d49386a2036df7ccbe802a06a759031e4455f07bda559dcf221f53e8850e69" "13d20048c12826c7ea636fbe513d6f24c0d43709a761052adbca052708798ce3" default)))
+    ("9089d25e2a77e6044b4a97a2b9fe0c82351a19fdd3e68a885f40f86bbe3b3900" "96c56bd2aab87fd92f2795df76c3582d762a88da5c0e54d30c71562b7bf9c605" "aded61687237d1dff6325edb492bde536f40b048eab7246c61d5c6643c696b7f" "ae65ccecdcc9eb29ec29172e1bfb6cadbe68108e1c0334f3ae52414097c501d2" "2a9039b093df61e4517302f40ebaf2d3e95215cb2f9684c8c1a446659ee226b9" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "fd3c7bd752f48dcb7efa5f852ef858c425b1c397b73851ff8816c0580eab92f1" "e2fd81495089dc09d14a88f29dfdff7645f213e2c03650ac2dd275de52a513de" "ab564a7ce7f2b2ad9e2cfe9fe1019b5481809dd7a0e36240c9139e230cc2bc32" "3da031b25828b115c6b50bb92a117f5c0bbd3d9d0e9ba5af3cd2cb9db80db1c2" "595617a3c537447aa7e76ce05c8d43146a995296ea083211225e7efc069c598f" "8a9be13b2353a51d61cffed5123b157000da0347c252a7a308ebc43e16662de7" "dd43ce1171324a8e47f9e4ca9f49773c4b4960706171ab951130c668adc59f53" "26d49386a2036df7ccbe802a06a759031e4455f07bda559dcf221f53e8850e69" "13d20048c12826c7ea636fbe513d6f24c0d43709a761052adbca052708798ce3" default)))
  '(haskell-process-auto-import-loaded-modules t)
  '(haskell-process-log t)
  '(haskell-process-suggest-remove-import-lines t)
