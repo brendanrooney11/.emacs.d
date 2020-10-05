@@ -1,6 +1,7 @@
 (use-package kaolin-themes
   :ensure
   :config
+  (load-theme 'kaolin-dark)
   (kaolin-treemacs-theme))
 (use-package darkokai-theme
   :defer
@@ -28,7 +29,7 @@
   :ensure)
 
 ;;(load-theme 'gruvbox-dark-hard t)
-(load-theme 'modus-vivendi t)
+;;(load-theme 'modus-vivendi t)
 
 (defvar dark-theme 'modus-vivendi)
 (defvar light-theme 'modus-operandi)
