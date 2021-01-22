@@ -22,8 +22,6 @@
                 ("M-h" . company-quickhelp-manual-begin))
     :hook (global-company-mode . company-quickhelp-mode)
     :init (setq company-quickhelp-delay 0.8)))
-;;(add-to-list 'company-backends #'company-tabnine)
-
 
 (use-package lsp-ui
   :ensure t)

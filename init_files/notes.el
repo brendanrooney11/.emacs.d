@@ -24,3 +24,8 @@
   ("d" note-dump "dump"))
 
 (global-set-key (kbd "C-c n") 'notes-hydra/body)
+
+
+;; Want in a note file.
+;; auto-fill
+;; spellcheck

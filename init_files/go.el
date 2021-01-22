@@ -7,8 +7,7 @@
 (use-package go-add-tags  
   :ensure)
 (use-package go-eldoc
-  :ensure
-  :diminish eldoc-mode)
+  :ensure)
 (use-package go-gopath
   :ensure)
 (use-package go-stacktracer

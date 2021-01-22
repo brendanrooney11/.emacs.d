@@ -8,8 +8,7 @@
 (use-package avy
   :ensure
   :bind
-  (( "C-j" . avy-goto-word-or-subword-1)
-   ("C-c g" . avy-goto-line)))
+  (( "C-j" . avy-goto-word-or-subword-1)))
 (use-package beacon
   :ensure
   :diminish beacon-mode
@@ -18,15 +17,27 @@
 (use-package command-log-mode
   :ensure
   :diminish command-log-mode)
-(use-package counsel
-  :ensure)
 (use-package crux
   :ensure
   :config
   (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line))
-
+(use-package diminish
+  :ensure)
+(use-package dired
+  :bind
+  (("C-x C-j" . dired-jump))
+  :config  
+  (setq dired-recursive-copies 'always)
+  (setq dired-recursive-deletes 'always)
+  (setq dired-listing-switches
+        "-AGFhlv --group-directories-first --time-style=long-iso")
+  (setq dired-dwim-target t)
+  :hook ((dired-mode . hl-line-mode)))
 (use-package dumb-jump
   :ensure)
+(use-package eldoc
+  :ensure
+  :diminish eldoc-mode)
 (use-package expand-region
   :ensure
   :bind
@@ -38,9 +49,10 @@
   :config
   (setq fci-rule-column 120)
   (setq fci-rule-width 1)
-  (setq fci-rule-color "darkblue"))
+  (setq fci-rule-color "gray19"))
 (use-package flycheck
   :ensure
+  :diminish flycheck-mode
   :init
   (add-to-list 'display-buffer-alist
                `(,(rx bos "*Flycheck errors*" eos)
@@ -49,25 +61,9 @@
                  (side            . bottom)
                  (reusable-frames . visible)
                  (window-height   . 0.15))))
-
-(use-package helm
-  :ensure
-  :commands
-  (helm-mode)
-  :bind
-  (("M-y" . helm-show-kill-ring)
-   ("M-x" . helm-M-x)
-   ("M-s s" . helm-occur)
-   ("C-c C-h b" . helm-filtered-bookmarks)
-   ("C-x C-f" . helm-find-files)
-   ;;("C-x b" . helm-mini)
-   ))
-(use-package helm-ag
-  :ensure
-  :bind
-  (("M-s a" .  helm-ag)))
-(use-package helm-swoop
-  :ensure)
+(use-package hi-lock
+  :config
+  (global-hi-lock-mode))
 (use-package hydra
   :ensure)
 (use-package ibuffer
@@ -107,6 +103,15 @@
   :bind (:map ibuffer-mode-map
               ("/ V" . ibuffer-vc-set-filter-groups-by-vc-root)
               ("/ <deletechar>" . ibuffer-clear-filter-groups)))
+(use-package image-dired
+  :config
+  (setq image-dired-external-viewer "feh")
+  (setq image-dired-thumb-size 80)
+  (setq image-dired-thumb-margin 2)
+  (setq image-dired-thumb-relief 0)
+  (setq image-dired-thumbs-per-row 4)
+  :bind (:map image-dired-thumbnail-mode-map
+              ("<return>" . image-dired-thumbnail-display-external)))
 (use-package isearch
   :config
   (setq search-whitespace-regexp ".*")
@@ -119,27 +124,38 @@
 (use-package idle-highlight-mode
   :ensure t
   :config
-  (idle-highlight-mode))
+  (setq idle-highlight-idle-time 0.1))
 (use-package ivy
   :ensure t
-  :bind
-  (("C-c M-s" . counsel-ag))
   :config
-  (ivy-mode 1)  
-  (setq ivy-use-virtual-buffers t)
-  (setq ivy-count-format "(%d%d)"))
-
-(use-package magit
-  :ensure)
-
-(use-package multiple-cursors
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (global-set-key (kbd "C-c k") 'counsel-ag))
+(use-package lsp-mode
   :ensure t
   :defer t
-  :bind
-  (("C-c m a" . mc/vertical-align)
-   ("C-c m s" . mc/mark-next-like-this)
-   ("C-c m d" . mc/mark-all-like-this)
-   ("C-c m f" . mc/vertical-align)))
+  :commands (lsp lsp-deferred)
+  :init (setq lsp-keymap-prefix "C-c l"))
+(use-package lsp-ui
+  :ensure t
+  :defer t
+  :config
+  (setq lsp-ui-sideline-enable nil
+	    lsp-ui-doc-delay 2)
+  :hook (lsp-mode . lsp-ui-mode)
+  :bind (:map lsp-ui-mode-map
+	      ("C-c i" . lsp-ui-imenu)))
+(use-package magit
+  :ensure)
+(use-package minibuffer
+  :config
+  (setq completion-category-defaults nil)
+  (setq completion-show-help nil)
+  (setq completion-ignore-case t)
+  (setq enable-recursive-minibuffers t)
+  (file-name-shadow-mode 1)
+  (minibuffer-depth-indicate-mode 1)
+  (minibuffer-electric-default-mode 1))
 (use-package neotree
   :ensure
   :bind
@@ -161,46 +177,26 @@
   :ensure t
   :bind
   ("C-c C-r" . restart-emacs))
-(use-package sublimity
-  :ensure t
-  :bind
-  ([f9] . sublimity-mode))
 (use-package smartparens
   :ensure)
-(use-package smart-mode-line
-  :ensure t
-  :config  
-  (setq sml/theme 'dark))
 (use-package swiper
   :ensure t
   :bind
   ("C-c s" . swiper))
-(use-package vimish-fold
-  :ensure)
 (use-package which-key
   :ensure t
+  :diminish which-key-mode
   :config
   (which-key-mode)
   (setq which-key-idle-delay 2.0))
-(use-package yasnippet
-  :ensure t
-  :defer t
-  :diminish yas
-  :bind ("C-c /" . yas-expand)
-  :config
-  (yas/global-mode 1)
-  ;;(load (concat init-dir "snippets/go-snippets/go-snippets.el"))
-  ;;(load (concat init-dir "snippets/react-snippets/react-snippets.el"))
-  ;;(add-to-list 'yas-snippet-dirs (concat init-dir "snippets"))
-  )
-(use-package yasnippet-snippets
-  :ensure)
 (use-package keyfreq
   :ensure
   :config
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1))
-
+(use-package whitespace
+  :ensure
+  :diminish whitespace-mode)
 
 ;; THINGS TURNED ON
 (global-auto-revert-mode 1)
@@ -229,15 +225,13 @@
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 (setq initial-scratch-message ";;scratch\n\n")
 
-
 ;; CUSTOM FACES
 (custom-set-faces
  '(default ((t (:family "Iosevka" :foundry "CYEL" :slant normal :weight normal :height 113 :width normal)))))
 
-
 ;; Search
 (global-set-key (kbd "C-s") 'isearch-forward)
-
+(global-set-key (kbd "C-c s") 'swiper)
 
 ; Text Movement or Creation
 (global-set-key (kbd "M-/") 'comment-or-uncomment-region)
@@ -263,10 +257,8 @@
 (global-set-key [f2] 'scroll-bar-mod)
 (global-set-key [f12] 'calendar)
 
-
 ;;other
 (global-set-key (kbd "C-z") 'undo)
-
 
 ;; Hydras
 (global-set-key (kbd "C-c o") 'org-hydra/body)
@@ -280,22 +272,6 @@
   ("A" org-agenda-list "agenda-list")
   ("c" org-capture "capture")
   ("l" org-store-link "link")
-  ("q" nil "quit"))
-
-(defhydra vimish-fold-hydra (:color blue :columns 3)
-  "fold"
-  ("a" vimish-fold-avy "avy")
-  ("s" vimish-fold-unfold "undo")
-  ("S" vimish-fold-unfold-all "undo-all")
-  ("d" vimish-fold-delete "del")
-  ("D" vimish-fold-delete-all "del-all")
-  ("f" vimish-fold "fold")
-  ("g" vimish-fold-refold "refold")
-  ("G" vimish-fold-refold-all "refold-all")
-  ("h" vimish-fold-toggle "toggle" :exit nil)
-  ("H" vimish-fold-toggle-all "toggle-all" :exit nil)
-  ("j" vimish-fold-next-fold "down" :exit nil)
-  ("k" vimish-fold-previous-fold "up" :exit nil)
   ("q" nil "quit"))
 
 (defhydra zoom-hydra ()
@@ -325,13 +301,10 @@
   ("d" (eval-defun) "defun")
   ("f" (eval-buffer) "buffer"))
 
-
-;;############################################
 (defun indent-buffer ()
   (interactive)
   (indent-region (point-min) (point-max)))
 
-;;############################################
 (defun duplicate-current-line (&optional n)
   "duplicate current line, make more than 1 copy given a numeric argument"
   (interactive "p")
@@ -347,10 +320,110 @@
     	(insert current-line)
     	(decf n)))))
 
-;;######################################################
 (defun toggle-mark-word-at-point ()
   (interactive)
   (if hi-lock-interactive-patterns
       (unhighlight-regexp (car (car hi-lock-interactive-patterns)))
     (highlight-symbol-at-point)))
-(global-set-key (kbd "C-.") 'toggle-mark-word-at-point)
+
+
+;;########## Themes ##########
+(use-package kaolin-themes
+  :ensure
+  :config
+  (load-theme 'kaolin-dark)
+  (kaolin-treemacs-theme))
+(use-package darkokai-theme
+  :defer
+  :ensure)
+(use-package gruvbox-theme
+  :defer
+  :ensure)
+(use-package moe-theme
+  :defer
+  :ensure)
+(use-package monokai-theme
+  :defer
+  :ensure)
+(use-package nord-theme
+  :defer
+  :ensure)
+(use-package modus-operandi-theme
+  :defer
+  :ensure)
+(use-package modus-vivendi-theme
+  :defer
+  :ensure)
+
+(use-package all-the-icons
+  :ensure)
+
+;;(load-theme 'gruvbox-dark-hard t)
+;;(load-theme 'modus-vivendi t)
+
+;;(defvar dark-theme 'modus-vivendi)
+;;(defvar light-theme 'modus-operandi)
+
+(defun toggle-light-dark-themes ()
+  "Toggle between `light-theme' and `dark-theme' themes."
+  (interactive)
+  (if (eq (car custom-enabled-themes) light-theme)
+      (progn
+        (disable-theme light-theme)
+        (load-theme dark-theme t))
+    (disable-theme dark-theme)
+    (load-theme light-theme t)))
+
+
+(global-set-key (kbd "C-c C-w") 'delete-trailing-whitespace)
+;;(setq tab-width 2)
+
+(custom-set-variables '(whitespace-style
+                        (quote (face
+                                tabs
+                                spaces
+                                trailing
+                                space-before-tab
+                                newline
+                                indentation
+                                empty
+                                space-after-tab
+                                space-mark
+                                tab-mark))))
+
+(global-set-key (kbd "M-SPC") 'cycle-spacing)
+(global-set-key (kbd "M-o") 'delete-blank-lines)
+
+(defun whitespace-handeling ()
+  (interactive)
+  (whitespace-mode 1)
+  (add-to-list 'write-file-functions 'delete-trailing-whitespace))
+
+(let ((whitespace-enabled-modes
+       '(c-mode-hook
+         c++-mode-hook
+         emacs-lisp-mode
+         rust-mode-hook
+         scala-mode-hook
+         js2-mode-hook
+         haskell-mode-hook
+         python-mode-hook
+         erlang-mode-hook
+         go-mode-hook
+         lisp-mode-hook)))
+  (dolist (mode whitespace-enabled-modes)
+    (add-hook mode 'whitespace-handeling)))
+
+(defun ibuffer-search ()
+  "Open I buffer and initiate a search"
+  (interactive)
+  (ibuffer)
+  (isearch-forward))
+
+(global-set-key (kbd "C-x b") 'ibuffer-search)
+
+
+  
+  
+
+

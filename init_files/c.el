@@ -6,14 +6,14 @@
   (add-to-list 'company-backends 'company-c-headers))
 
 
-(defun my/c-mode-hook ()
+(defun bjr/c-mode-hook ()
   (c-set-style "k&r")
   (flycheck-mode)
   (linum-mode)
   (company-mode)) ;;Fill column line mode
 
-(add-hook 'c-mode-hook 'my/c-mode-hook)
-(add-hook 'c++-mode-hook 'my/c-mode-hook)
+(add-hook 'c-mode-hook 'bjr/c-mode-hook)
+(add-hook 'c++-mode-hook 'bjr/c-mode-hook)
 
 
 (setq auto-mode-alist
