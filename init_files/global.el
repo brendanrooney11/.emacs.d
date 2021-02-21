@@ -17,6 +17,38 @@
 (use-package command-log-mode
   :ensure
   :diminish command-log-mode)
+(use-package counsel
+  :ensure t
+  :config
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (global-set-key (kbd "C-c k") 'counsel-ag))
+(use-package company
+  :ensure
+  :demand t
+  :commands company-mode
+  :config  
+  (setq company-global-modes '(not term-mode))  
+  (setq company-minimum-prefix-length 2
+        company-selection-wrap-around t
+        company-show-numbers t
+        company-tooltip-align-annotations t
+        company-require-match nil
+        company-dabbrev-downcase nil
+        company-dabbrev-ignore-case nil
+        company-tooltip-limit 20
+        company-idle-delay .1
+        company-echo-delay 0)
+  (setq company-transformers '(company-sort-by-occurrence))  
+  (use-package company-quickhelp
+    :ensure
+    :defines company-quickhelp-delay
+    :bind (:map company-active-map
+                ("M-h" . company-quickhelp-manual-begin))
+    :hook (global-company-mode . company-quickhelp-mode)
+    :init (setq company-quickhelp-delay 0.8)))
+(use-package company-lsp
+  :ensure :after company)
 (use-package crux
   :ensure
   :config
@@ -126,11 +158,7 @@
   :config
   (setq idle-highlight-idle-time 0.1))
 (use-package ivy
-  :ensure t
-  :config
-  (global-set-key (kbd "M-x") 'counsel-M-x)
-  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-  (global-set-key (kbd "C-c k") 'counsel-ag))
+  :ensure t)
 (use-package lsp-mode
   :ensure t
   :defer t
@@ -140,11 +168,12 @@
   :ensure t
   :defer t
   :config
-  (setq lsp-ui-sideline-enable nil
-	    lsp-ui-doc-delay 2)
+  (setq lsp-ui-sideline-show-hover t
+        lsp-ui-sideline-delay 0.5
+	lsp-ui-doc-delay 2)
   :hook (lsp-mode . lsp-ui-mode)
   :bind (:map lsp-ui-mode-map
-	      ("C-c i" . lsp-ui-imenu)))
+	      ("C-c l" . lsp-ui-imenu)))
 (use-package magit
   :ensure)
 (use-package minibuffer
@@ -259,6 +288,7 @@
 
 ;;other
 (global-set-key (kbd "C-z") 'undo)
+(global-set-key (kbd "C-c k") 'compile)
 
 ;; Hydras
 (global-set-key (kbd "C-c o") 'org-hydra/body)
@@ -421,6 +451,8 @@
   (isearch-forward))
 
 (global-set-key (kbd "C-x b") 'ibuffer-search)
+
+                
 
 
   
