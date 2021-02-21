@@ -35,8 +35,17 @@
 
 
 (setq org-refile-targets '(("~/documents/agenda/agenda.org" :level . 2)
-                           ("~/documents/agenda/reminders.org" :level . 2)))                          
+                           ("~/documents/agenda/reminders.org" :level . 2)))
 
+(defun org-new-book ()
+  (interactive)
+  (insert (concat "*** TODO " (read-string "Title: " ) "\n"
+                  ":PROPERTIES:\n"
+                  ":Author: " (read-string "Author: " ) "\n"
+                  ":PublishYear: " (read-string "PublishYear: " ) "\n"
+                  ":Translated: " (read-string "Translated: " ) "\n"
+                  ":ISBN-13: " (read-string "ISBN-13: ") "\n"
+                  ":END:")))
 ;; (defun contextual-refile ()
 ;;     (interactive)
 ;;     (setq buff buffer-name)
@@ -54,8 +63,15 @@
 ;; Set the default org columns view
 (setq org-columns-default-format "%50ITEM(Task) %10CLOCKSUM %16TIMESTAMP_IA")
 
+(global-set-key (kbd "C-c o") 'org-hydra/body)
 
-
+(defhydra org-hydra (:color blue)
+  "org"
+  ("a" org-agenda "agenda")
+  ("A" org-agenda-list "agenda-list")
+  ("c" org-capture "capture")
+  ("l" org-store-link "link")
+  ("q" nil "quit"))
 
 
 
